@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0918BA14283791C8000DA8BB /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0918BA13283791C8000DA8BB /* NetworkService.swift */; };
+		0918BA16283792D5000DA8BB /* NetworkDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0918BA15283792D5000DA8BB /* NetworkDataParser.swift */; };
+		0918BA1928379D99000DA8BB /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0918BA1828379D99000DA8BB /* ImageView.swift */; };
+		0918BA1B2837A0FC000DA8BB /* ImageDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0918BA1A2837A0FC000DA8BB /* ImageDesc.swift */; };
 		098559A728340699006FEE96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098559A628340699006FEE96 /* AppDelegate.swift */; };
 		098559A928340699006FEE96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098559A828340699006FEE96 /* SceneDelegate.swift */; };
 		098559AB28340699006FEE96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098559AA28340699006FEE96 /* ViewController.swift */; };
@@ -24,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0918BA13283791C8000DA8BB /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		0918BA15283792D5000DA8BB /* NetworkDataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataParser.swift; sourceTree = "<group>"; };
+		0918BA1828379D99000DA8BB /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		0918BA1A2837A0FC000DA8BB /* ImageDesc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDesc.swift; sourceTree = "<group>"; };
 		098559A328340699006FEE96 /* PicViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		098559A628340699006FEE96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		098559A828340699006FEE96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,9 +64,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0918BA122837912E000DA8BB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0918BA13283791C8000DA8BB /* NetworkService.swift */,
+				0918BA15283792D5000DA8BB /* NetworkDataParser.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		0985599A28340699006FEE96 = {
 			isa = PBXGroup;
 			children = (
+				0918BA122837912E000DA8BB /* Network */,
 				09DAFA332836ACB90036986F /* View */,
 				09DAFA2C2836A6950036986F /* DataModel */,
 				09DAFA292836A63D0036986F /* Database */,
@@ -80,9 +98,6 @@
 		098559A528340699006FEE96 /* PicViewer */ = {
 			isa = PBXGroup;
 			children = (
-				09DAFA2728368B450036986F /* Compositor.swift */,
-				098559BE28340DC3006FEE96 /* FavoritesCollectionViewController.swift */,
-				098559BC28340D6B006FEE96 /* MainViewController.swift */,
 				098559A628340699006FEE96 /* AppDelegate.swift */,
 				098559A828340699006FEE96 /* SceneDelegate.swift */,
 				098559AA28340699006FEE96 /* ViewController.swift */,
@@ -115,6 +130,11 @@
 		09DAFA332836ACB90036986F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				09DAFA2728368B450036986F /* Compositor.swift */,
+				098559BE28340DC3006FEE96 /* FavoritesCollectionViewController.swift */,
+				098559BC28340D6B006FEE96 /* MainViewController.swift */,
+				0918BA1828379D99000DA8BB /* ImageView.swift */,
+				0918BA1A2837A0FC000DA8BB /* ImageDesc.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -251,16 +271,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0918BA14283791C8000DA8BB /* NetworkService.swift in Sources */,
 				09DAFA302836A6F70036986F /* UnsplashObject.swift in Sources */,
 				09DAFA322836A77E0036986F /* RealmService.swift in Sources */,
 				098559BD28340D6C006FEE96 /* MainViewController.swift in Sources */,
 				09DAFA2E2836A6B20036986F /* UnsplashPhoto.swift in Sources */,
 				098559AB28340699006FEE96 /* ViewController.swift in Sources */,
+				0918BA1B2837A0FC000DA8BB /* ImageDesc.swift in Sources */,
 				09DAFA2828368B450036986F /* Compositor.swift in Sources */,
 				098559A728340699006FEE96 /* AppDelegate.swift in Sources */,
 				098559BF28340DC3006FEE96 /* FavoritesCollectionViewController.swift in Sources */,
 				09DAFA2B2836A6580036986F /* DatabaseService.swift in Sources */,
+				0918BA1928379D99000DA8BB /* ImageView.swift in Sources */,
 				098559A928340699006FEE96 /* SceneDelegate.swift in Sources */,
+				0918BA16283792D5000DA8BB /* NetworkDataParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

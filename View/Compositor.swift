@@ -17,13 +17,9 @@ class Compositor: CompositorProtocol {
     let database = RealmService()
     
     func createMainView() -> UIViewController {
-//        let view = RandomImageViewController()
         let view = MainViewController()
         view.databaseService = database
         
-//        let networkService = NetworkService.shared
-//        let presenter = RandomImagePresenter(view: view, networkService: networkService)
-//        view.presenter = presenter
         return view
     }
     

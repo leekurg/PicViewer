@@ -10,7 +10,9 @@ import SnapKit
 
 class MainViewController: UIViewController
 {
-     var databaseService: DatabaseService?
+    var databaseService: DatabaseService?
+    private let networkDataParser: NetworkDataParser = NetworkDataParser()
+    private let imageView = ImageView()
     
     override func viewDidLoad()
     {
@@ -20,6 +22,8 @@ class MainViewController: UIViewController
         
         setupNavigationBar()
         setupView()
+        
+        setupImage()
     }
     
     // MARK: - setup UI
@@ -37,19 +41,13 @@ class MainViewController: UIViewController
     
     private func setupView()
     {
-//        let imageView: UIImageView = {
-//            let image = UIImageView(image: .none)
-//            image.contentMode = UIView.ContentMode.scaleAspectFit
-//            image.clipsToBounds = true
+//        let imageView: UIView = {
+//            let image = UIView()
+//            image.backgroundColor = .red
 //
 //            return image
 //        }()
-        let imageView: UIView = {
-            let image = UIView()
-            image.backgroundColor = .red
- 
-            return image
-        }()
+        
         
         let addToFavoritesButton: UIButton = {
             let button = UIButton(type: .system)
@@ -99,5 +97,64 @@ class MainViewController: UIViewController
     
     @objc func willOpenFavoriteImages() {
         navigationController?.pushViewController(FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() ), animated: true)
+    }
+}
+
+    // MARK: - Image processing
+
+extension MainViewController
+{
+    private func setupImage()
+    {
+        self.networkDataParser.fetchImage {[weak self] (unsplashPhotoResult, error) in
+            if let error = error{
+                self?.handleError(error: error)
+            }
+            else{
+                self?.handleSuccess(unsplashPhoto: unsplashPhotoResult)
+            }
+        }
+    }
+    
+    private func handleSuccess(unsplashPhoto:UnsplashPhoto?)
+    {
+//        imageSetupTimerLabel.isError = false
+//        navigationsButtonsIsHidden = false
+        
+//        descriptionImageView.unsplashPhoto = unsplashPhoto
+        imageView.unsplashPhoto = unsplashPhoto
+        
+//        guard let unsplashPhoto = unsplashPhoto else {return}
+//        defaults.set(unsplashPhoto.id,forKey: UnsplashPhotoKeys.keyId.rawValue)
+//        defaults.set(unsplashPhoto.likes,forKey: UnsplashPhotoKeys.keyLikes.rawValue)
+//        defaults.set(unsplashPhoto.downloads,forKey: UnsplashPhotoKeys.keyDownloads.rawValue)
+//        defaults.set(unsplashPhoto.urls["regular"],forKey: UnsplashPhotoKeys.keyUrl.rawValue)
+    }
+    
+    private func handleError(error:String){
+//        if isHidden {return}
+        showErrorPopup(error: error)
+//        imageSetupTimerLabel.isError = true
+//        navigationsButtonsIsHidden = true
+        
+//        guard let id = defaults.object(forKey: UnsplashPhotoKeys.keyId.rawValue) as? String,
+//              let likes = defaults.object(forKey: UnsplashPhotoKeys.keyLikes.rawValue) as? Int,
+//              let downloads = defaults.object(forKey: UnsplashPhotoKeys.keyDownloads.rawValue) as? Int,
+//              let url = defaults.object(forKey: UnsplashPhotoKeys.keyUrl.rawValue) as? String
+//        else{
+//            return
+//        }
+        
+//        let unsplashPhoto = UnsplashPhoto(id: id, width: 0, height: 0, color: "", created_at: "", updated_at: "", downloads: downloads, likes: likes, urls: [UnsplashPhoto.URLSizes.regular.rawValue: url])
+        
+
+//        descriptionImageView.unsplashPhoto = unsplashPhoto
+//        imageView.unsplashPhoto = unsplashPhoto
+
+    }
+    
+    
+    private func showErrorPopup(error:String){
+//        SwiftEntryKit.display(entry: PopUpView(with: error), using: EKAttributes.topToast)
     }
 }
