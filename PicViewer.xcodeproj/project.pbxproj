@@ -12,6 +12,7 @@
 		0918BA1928379D99000DA8BB /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0918BA1828379D99000DA8BB /* ImageView.swift */; };
 		0918BA1B2837A0FC000DA8BB /* ImageDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0918BA1A2837A0FC000DA8BB /* ImageDesc.swift */; };
 		0918BA1F2838F329000DA8BB /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0918BA1E2838F329000DA8BB /* ImageCell.swift */; };
+		0918BA21283953FE000DA8BB /* TimerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0918BA20283953FE000DA8BB /* TimerLabel.swift */; };
 		098559A728340699006FEE96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098559A628340699006FEE96 /* AppDelegate.swift */; };
 		098559A928340699006FEE96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098559A828340699006FEE96 /* SceneDelegate.swift */; };
 		098559AB28340699006FEE96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098559AA28340699006FEE96 /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 		0918BA1828379D99000DA8BB /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		0918BA1A2837A0FC000DA8BB /* ImageDesc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDesc.swift; sourceTree = "<group>"; };
 		0918BA1E2838F329000DA8BB /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		0918BA20283953FE000DA8BB /* TimerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerLabel.swift; sourceTree = "<group>"; };
 		098559A328340699006FEE96 /* PicViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		098559A628340699006FEE96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		098559A828340699006FEE96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				0918BA1828379D99000DA8BB /* ImageView.swift */,
 				0918BA1A2837A0FC000DA8BB /* ImageDesc.swift */,
 				0918BA1E2838F329000DA8BB /* ImageCell.swift */,
+				0918BA20283953FE000DA8BB /* TimerLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				098559BF28340DC3006FEE96 /* FavoritesCollectionViewController.swift in Sources */,
 				09DAFA2B2836A6580036986F /* DatabaseService.swift in Sources */,
 				0918BA1928379D99000DA8BB /* ImageView.swift in Sources */,
+				0918BA21283953FE000DA8BB /* TimerLabel.swift in Sources */,
 				098559A928340699006FEE96 /* SceneDelegate.swift in Sources */,
 				0918BA16283792D5000DA8BB /* NetworkDataParser.swift in Sources */,
 				0918BA1F2838F329000DA8BB /* ImageCell.swift in Sources */,

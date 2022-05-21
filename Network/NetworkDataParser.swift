@@ -10,11 +10,11 @@ import Foundation
 class NetworkDataParser{
     let networkService = NetworkService()
     
-    func fetchImage(complition: @escaping ((UnsplashPhoto?, String?)) -> Void){
+    func fetchImage(complition: @escaping ((UnsplashPhoto?, (String, Bool)?)) -> Void){
         networkService.request() { (data, error) in
             if let _ = error {
                 let errorString = NetworkError.ConnectionError.rawValue
-                complition((nil, errorString))
+                complition((nil, (errorString,true)))
                 return
             }
             let unsplashPhotoResult = self.decodeJSON(type: UnsplashPhoto.self, from: data)
@@ -34,7 +34,7 @@ class NetworkDataParser{
         }
     }
     
-    func decodeJSON<T:Decodable>(type:T.Type, from data: Data?) -> (T?,String?){
+    func decodeJSON<T:Decodable>(type:T.Type, from data: Data?) -> (T?,(String, Bool)?){
         guard let data = data else {return (nil,nil)}
         let decoder = JSONDecoder()
         do {
@@ -42,7 +42,7 @@ class NetworkDataParser{
             return (objects,nil)
         } catch let jsonError {
             let errorString = NetworkError.ServiceError.rawValue
-            return (nil, errorString)
+            return (nil, (errorString, false))
         }
     }
 }

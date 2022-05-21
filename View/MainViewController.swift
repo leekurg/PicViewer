@@ -17,7 +17,8 @@ class MainViewController: UIViewController
     private let imageDesc = ImageDesc()
     private let favoritesView = FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() )
     private let addToFavoritesButton = UIButton(type: .system)
-    
+    private lazy var timerLabel = TimerLabel(timeCount: 10, complition: setupImage )
+    private var alertNoInternetShown = false
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -42,19 +43,26 @@ class MainViewController: UIViewController
         imageDesc.titleLabel = UILabel()
         imageDesc.descLabel = UILabel()
         
-        addToFavoritesButton.setBackgroundColor(color: UIColor(red: 84/255, green: 118/255, blue: 171/255, alpha: 1), forState: .normal)
-//        addToFavoritesButton.setBackgroundColor(color: .lightGray, forState: .disabled)
+        addToFavoritesButton.backgroundColor = UIColor(red: 84/255, green: 118/255, blue: 171/255, alpha: 1)
         addToFavoritesButton.setTitleColor(.white, for: .normal)
         addToFavoritesButton.layer.cornerRadius = 20
         addToFavoritesButton.setTitle("🤍", for: .normal)
         addToFavoritesButton.setTitle("❤️", for: .disabled)
         addToFavoritesButton.isUserInteractionEnabled = false   //для обработки старта без сети
         
+        view.addSubview(timerLabel)
         view.addSubview(imageView)
         view.addSubview(imageDesc.created())
         view.addSubview(addToFavoritesButton)
         
         //constraints
+        timerLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).inset(-5)
+            make.height.equalTo(40)
+            make.width.equalTo(200)
+        }
+        
         imageView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(self.view.safeAreaLayoutGuide)
@@ -85,9 +93,6 @@ class MainViewController: UIViewController
         
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(nextImage))
         self.navigationItem.leftBarButtonItem = refreshButton
-        
-//        self.navigationItem.titleView = timerLabel
-//        self.navigationItem.titleView?.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
     }
     
     // MARK: - Navigation action
@@ -131,7 +136,8 @@ extension MainViewController
     
     private func handleSuccess(unsplashPhoto:UnsplashPhoto?)
     {
-//        imageSetupTimerLabel.isError = false
+        timerLabel.isError = false
+        alertNoInternetShown = false
         
         addToFavoritesButton.isUserInteractionEnabled = true
         addToFavoritesButton.isEnabled = true
@@ -145,19 +151,31 @@ extension MainViewController
         userDefaults.set(unsplashPhoto.urls["regular"],forKey: UnsplashPhotoKeys.keyUrl.rawValue)
     }
     
-    private func handleError(error:String){
-//        if isHidden {return}
-        showErrorPopup(error: error)
-//        imageSetupTimerLabel.isError = true
+    private func handleError(error: (String,Bool)){
+        addToFavoritesButton.isUserInteractionEnabled = false
+        timerLabel.isError = true
         
-            guard let id = userDefaults.object(forKey: UnsplashPhotoKeys.keyId.rawValue) as? String,
-                  let created_at = userDefaults.object(forKey: UnsplashPhotoKeys.keyCreated.rawValue) as? String,
-                  let url = userDefaults.object(forKey: UnsplashPhotoKeys.keyUrl.rawValue) as? String
-            else{
-                return
+        let noInternetError = error.1
+        if noInternetError {
+            if !alertNoInternetShown {
+                showErrorPopup(error: error.0)
+                alertNoInternetShown = true
             }
-            
-            let unsplashPhoto = UnsplashPhoto(id: id, width: 0, height: 0, color: "", created_at: created_at, updated_at: "", downloads: 0, likes: 0, urls: [UnsplashPhoto.URLSizes.regular.rawValue: url])
+        }
+        else {
+            showErrorPopup(error: error.0)
+            alertNoInternetShown = false
+        }
+        
+        
+        guard let id = userDefaults.object(forKey: UnsplashPhotoKeys.keyId.rawValue) as? String,
+              let created_at = userDefaults.object(forKey: UnsplashPhotoKeys.keyCreated.rawValue) as? String,
+              let url = userDefaults.object(forKey: UnsplashPhotoKeys.keyUrl.rawValue) as? String
+        else{
+            return
+        }
+        
+        let unsplashPhoto = UnsplashPhoto(id: id, width: 0, height: 0, color: "", created_at: created_at, updated_at: "", downloads: 0, likes: 0, urls: [UnsplashPhoto.URLSizes.regular.rawValue: url])
         
 
         imageView.unsplashPhoto = unsplashPhoto
@@ -181,20 +199,3 @@ extension MainViewController {
         favoritesView.databaseService = db
     }
 }
-
-// MARK: - UIButton extention for states
-
-extension UIButton {
-    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-        self.clipsToBounds = true
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        if let context = UIGraphicsGetCurrentContext() {
-            context.setFillColor(color.cgColor)
-            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            self.setBackgroundImage(colorImage, for: forState)
-        }
-    }
-}
-
