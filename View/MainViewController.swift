@@ -14,6 +14,7 @@ class MainViewController: UIViewController
     private let networkDataParser: NetworkDataParser = NetworkDataParser()
     private let imageView = ImageView()
     private let imageDesc = ImageDesc()
+    private let favoritesView = FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() )
     
     override func viewDidLoad()
     {
@@ -92,13 +93,15 @@ class MainViewController: UIViewController
     @objc private func addToFavoritesTapped()
     {
         print(#function)
+        databaseService?.write(imageView.unsplashPhoto)
+
         let alert = UIAlertController(title: "", message: "Добавлено в избранное", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
     
     @objc func willOpenFavoriteImages() {
-        navigationController?.pushViewController(FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() ), animated: true)
+        navigationController?.pushViewController(favoritesView, animated: true)
     }
 }
 
@@ -160,3 +163,13 @@ extension MainViewController
 //        SwiftEntryKit.display(entry: PopUpView(with: error), using: EKAttributes.topToast)
     }
 }
+
+// MARK: - Database setup
+extension MainViewController {
+    
+    func setDatabase( db: RealmService ) {
+        databaseService = db
+        favoritesView.databaseService = db
+    }
+}
+

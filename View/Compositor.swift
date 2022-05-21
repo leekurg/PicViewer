@@ -9,25 +9,17 @@ import UIKit
 
 protocol CompositorProtocol {
     func createMainView() -> UIViewController
-//    func createFavoriteView() -> UIViewController
 }
 
 class Compositor: CompositorProtocol {
     
     let database = RealmService()
     
+    
     func createMainView() -> UIViewController {
         let view = MainViewController()
-        view.databaseService = database
+        view.setDatabase(db: database)
         
         return view
     }
-    
-//    func createFavoriteView() -> UIViewController {
-////        let view = FavoriteImagesViewController()
-////        let view = FavoritesCollectionViewController()
-//        let view = FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() )  //из видоса
-//
-//        return view
-//    }
 }

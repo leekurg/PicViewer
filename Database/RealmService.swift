@@ -21,7 +21,7 @@ final class RealmService: DatabaseService{
     
     
     private let realm:Realm = try! Realm()
-        
+    
     func updateObjects(){
         _objects = realm.objects(UnsplashObject.self)
     }
