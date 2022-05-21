@@ -21,7 +21,20 @@ class ImageDesc: UIView {
             show()
             
             if let label = descLabel {
-                label.text = "Created at \(unsplashPhoto.created_at) by  \(unsplashPhoto.id)"
+                let dateFormatterGet = DateFormatter()
+                dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+
+                let dateFormatterPrint = DateFormatter()
+                dateFormatterPrint.dateFormat = "dd.MM.yyyy"
+
+                let date = dateFormatterGet.date(from: unsplashPhoto.created_at)
+                var sDate = ""
+                if let d = date {
+                    sDate = dateFormatterPrint.string(from: d)
+                }
+                
+//                label.text = "Created at \(sDate) by  \(unsplashPhoto.id)"
+                label.text = "Created at \(sDate) by someName"
             }
         }
     }
@@ -36,8 +49,6 @@ class ImageDesc: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     func created() -> Self {
         configure()
@@ -59,13 +70,8 @@ class ImageDesc: UIView {
 private extension ImageDesc {
     func configure() {
         
-//        backgroundColor = .red
-        layer.cornerRadius = 20
-        
-        
         if let label = titleLabel {
             addSubview(label)
-//            label.backgroundColor = .yellow
             label.text = "About photo"
             label.font = UIFont.systemFont(ofSize: 25, weight: .thin)
             label.snp.makeConstraints { make in
@@ -75,7 +81,6 @@ private extension ImageDesc {
         
         if let label = descLabel {
             addSubview(label)
-//            label.backgroundColor = .brown
             label.text = "No description"
             label.font = UIFont.systemFont(ofSize: 17, weight: .thin)
             label.numberOfLines = 0

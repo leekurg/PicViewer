@@ -11,7 +11,7 @@ class FavoritesCollectionViewController: UICollectionViewController {
 
     var networkDataParser = NetworkDataParser()
 //    private var timer: Timer?
-    var databaseService:DatabaseService?    //TODO private
+    var databaseService:DatabaseService?
 
     private var imagesModel:[UnsplashPhoto?] = []
 
@@ -73,6 +73,8 @@ class FavoritesCollectionViewController: UICollectionViewController {
         self.collectionView!.performBatchUpdates({
             self.collectionView!.deleteItems(at: indexPaths)
         }, completion: nil)
+        
+        refresh()
     }
 
 
@@ -93,7 +95,7 @@ class FavoritesCollectionViewController: UICollectionViewController {
 
 
 
-    // MARK: - UICollecionViewDataSource, UICollecionViewDelegate
+    // MARK: - UICollecionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        print( "Favorites count: \(imagesModel.count) ")

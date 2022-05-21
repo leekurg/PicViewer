@@ -5,20 +5,19 @@
 //  Created by Ильяяя on 21.05.2022.
 //
 
-import Foundation
 import UIKit
 import SDWebImage
+import SnapKit
 
 class ImageCell: UICollectionViewCell {
     
     static let reuseId = "PhotosCell"
     
-    private let checkmark: UIImageView = {
-        let image = UIImage(named: "bird1")
-        let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.alpha = 0
-        return imageView
+    private let markSelected: UILabel = {
+        let label = UILabel()
+        label.text = "✔️"
+        label.alpha = 0
+        return label
     }()
     
      let photoImageView: UIImageView = {
@@ -26,6 +25,10 @@ class ImageCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        imageView.layer.shadowOpacity = 0.5
+        imageView.layer.shadowRadius = 10.0
+        imageView.clipsToBounds = false
         return imageView
     }()
     
@@ -53,8 +56,8 @@ class ImageCell: UICollectionViewCell {
     }
     
     private func updateSelectedState() {
-        photoImageView.alpha = isSelected ? 0.7 : 1
-        checkmark.alpha = isSelected ? 1 : 0
+        photoImageView.alpha = isSelected ? 0.5 : 1
+        markSelected.alpha = isSelected ? 1 : 0
     }
     
     override init(frame: CGRect) {
@@ -67,17 +70,17 @@ class ImageCell: UICollectionViewCell {
     
     private func setupPhotoImageView() {
         addSubview(photoImageView)
-        photoImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        photoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        photoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        photoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        
+        photoImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     private func setupCheckmarkView() {
-        addSubview(checkmark)
-        checkmark.trailingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: -8).isActive = true
-        checkmark.bottomAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: -8).isActive = true
+        addSubview(markSelected)
+        markSelected.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(10)
+        }
     }
     
     required init?(coder: NSCoder) {
