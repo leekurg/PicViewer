@@ -21,7 +21,7 @@ final class RealmService: DatabaseService{
     
     
     private let realm:Realm = try! Realm()
-    
+        
     func updateObjects(){
         _objects = realm.objects(UnsplashObject.self)
     }
@@ -61,5 +61,4 @@ final class RealmService: DatabaseService{
     private func convertInputObject(_ object:UnsplashPhoto) -> Object? {
         return object.managedObject()
     }
-    
 }

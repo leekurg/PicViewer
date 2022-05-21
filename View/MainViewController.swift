@@ -13,12 +13,13 @@ class MainViewController: UIViewController
     var databaseService: DatabaseService?
     private let networkDataParser: NetworkDataParser = NetworkDataParser()
     private let imageView = ImageView()
+    private let imageDesc = ImageDesc()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        view.backgroundColor = .orange
+        view.backgroundColor = UIColor(red: 217/254, green: 215/255, blue: 184/255, alpha: 1)
         
         setupNavigationBar()
         setupView()
@@ -28,17 +29,6 @@ class MainViewController: UIViewController
     
     // MARK: - setup UI
     
-//    private func setupNavigationBar()
-//    {
-//        let titleLabel = UILabel()
-//        titleLabel.text = "Photos"
-//        titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .thin)
-//        titleLabel.textColor = .gray
-//
-//        navigationItem.rightBarButtonItem = UIBarButtonItem( customView: titleLabel )
-////        navigationItem.rightBarButtonItems = [addButton]
-//    }
-    
     private func setupView()
     {
 //        let imageView: UIView = {
@@ -47,19 +37,21 @@ class MainViewController: UIViewController
 //
 //            return image
 //        }()
-        
+        imageDesc.titleLabel = UILabel()
+        imageDesc.descLabel = UILabel()
         
         let addToFavoritesButton: UIButton = {
             let button = UIButton(type: .system)
             button.backgroundColor = UIColor(red: 84/255, green: 118/255, blue: 171/255, alpha: 1)
             button.setTitleColor(.white, for: .normal)
             button.layer.cornerRadius = 20
-            button.setTitle("like", for: .normal)
+            button.setTitle("❤️", for: .normal)
             
             return button
         }()
         
         view.addSubview(imageView)
+        view.addSubview(imageDesc.created())
         view.addSubview(addToFavoritesButton)
         
         //constraints
@@ -68,12 +60,19 @@ class MainViewController: UIViewController
             make.top.equalTo(self.view.safeAreaLayoutGuide)
             make.height.equalTo(400)
         }
+        
+        imageDesc.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(imageView.snp.bottom).inset(-40)
+            make.height.equalTo(100)
+        }
 
         addToFavoritesButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.width.equalTo(150)
+            make.top.equalTo(imageView.snp.bottom).inset(20)
+            make.right.equalToSuperview().inset(10)
+            make.width.equalTo(40)
             make.height.equalTo(40)
-            make.bottom.equalToSuperview().inset(30)
+//            make.bottom.equalToSuperview().inset(30)
         }
         
         //actions
@@ -93,6 +92,9 @@ class MainViewController: UIViewController
     @objc private func addToFavoritesTapped()
     {
         print(#function)
+        let alert = UIAlertController(title: "", message: "Добавлено в избранное", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
     
     @objc func willOpenFavoriteImages() {
@@ -121,7 +123,7 @@ extension MainViewController
 //        imageSetupTimerLabel.isError = false
 //        navigationsButtonsIsHidden = false
         
-//        descriptionImageView.unsplashPhoto = unsplashPhoto
+        imageDesc.unsplashPhoto = unsplashPhoto
         imageView.unsplashPhoto = unsplashPhoto
         
 //        guard let unsplashPhoto = unsplashPhoto else {return}

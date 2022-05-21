@@ -16,6 +16,7 @@ final class UnsplashObject: Object {
     @objc dynamic var updated_at = ""
     @objc dynamic var downloads = 0
     @objc dynamic var likes = 0
+//    @objc dynamic var user = ""
     @objc dynamic var defaultUrl:String?
 }
 
@@ -30,6 +31,7 @@ extension UnsplashPhoto: Persistable {
         character.updated_at = updated_at
         character.downloads = downloads
         character.likes = likes
+//        character.user = user
         if let defaultUrl = urls[UnsplashPhoto.URLSizes.regular.rawValue]{
             character.defaultUrl = defaultUrl
         }
@@ -45,6 +47,7 @@ extension UnsplashPhoto: Persistable {
         updated_at = managedObject.updated_at
         downloads = managedObject.downloads
         likes = managedObject.likes
+//        user = managedObject.user
         if let defaultUrl = managedObject.defaultUrl{
             urls = [UnsplashPhoto.URLSizes.regular.rawValue : defaultUrl]
         }
