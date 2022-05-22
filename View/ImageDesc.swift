@@ -33,8 +33,12 @@ class ImageDesc: UIView {
                     sDate = dateFormatterPrint.string(from: d)
                 }
                 
-//                label.text = "Created at \(sDate) by  \(unsplashPhoto.id)"
-                label.text = "Created at \(sDate) by someName"
+                var sName = ""
+                if let user = unsplashPhoto.user {
+                    sName = user.name
+                }
+                
+                label.text = "Created at \(sDate) by \(sName)"
             }
         }
     }

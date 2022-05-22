@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-struct UnsplashPhoto: Decodable, Hashable{
+struct UnsplashPhoto: Codable{
     let id: String
     let width: Int
     let height: Int
@@ -16,16 +16,16 @@ struct UnsplashPhoto: Decodable, Hashable{
     let updated_at:String
     let downloads:Int
     let likes:Int
-//    let user: String
-    let urls:[URLSizes.RawValue:String]
-    
-    enum URLSizes:String{
-        case taw
-        case full
-        case regular
-        case small
-        case thumb
-    }
+    let urls: ImageUrls
+    let user: ImageOwnerInfo?
+}
+
+struct ImageUrls: Codable {
+    var regular: String
+}
+
+struct ImageOwnerInfo: Codable {
+    let name: String
 }
 
 enum UnsplashPhotoKeys: String{
@@ -34,5 +34,5 @@ enum UnsplashPhotoKeys: String{
     case keyDownloads = "downloads"
     case keyUrl = "url"
     case keyCreated = "created_at"
-//    case keyAuthor = "author"
+    case keyUserName = "author"
 }

@@ -9,7 +9,7 @@ import Foundation
 
 enum NetworkError : String {
     case ConnectionError = "Internet connection has been lost"
-    case ServiceError = "Server answer is broken"
+    case ServiceError = "Server answer is incorrect"
 }
 
 class NetworkService {

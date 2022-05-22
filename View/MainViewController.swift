@@ -17,8 +17,22 @@ class MainViewController: UIViewController
     private let imageDesc = ImageDesc()
     private let favoritesView = FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() )
     private let addToFavoritesButton = UIButton(type: .system)
-    private lazy var timerLabel = TimerLabel(timeCount: 10, complition: setupImage )
-    private var alertNoInternetShown = false
+    private var timerLabel: TimerLabel?
+//    private lazy var timerLabel: TimerLabel? = TimerLabel(timeCount: 10, complition: setupImage )
+    private var _alertNoInternetShown = false
+    private var alertNoInternetShown: Bool {
+        set{
+            if let _ = timerLabel {
+                _alertNoInternetShown = newValue
+            }
+            else {      //игнорировать флаг показа ошибки, если нет таймера смены картинок
+                _alertNoInternetShown = false
+            }
+        }
+        get{
+            return _alertNoInternetShown
+        }
+    }
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -50,13 +64,15 @@ class MainViewController: UIViewController
         addToFavoritesButton.setTitle("❤️", for: .disabled)
         addToFavoritesButton.isUserInteractionEnabled = false   //для обработки старта без сети
         
-        view.addSubview(timerLabel)
+        if let _timerLabel = timerLabel {
+            view.addSubview(_timerLabel)
+        }
         view.addSubview(imageView)
         view.addSubview(imageDesc.created())
         view.addSubview(addToFavoritesButton)
         
         //constraints
-        timerLabel.snp.makeConstraints { make in
+        timerLabel?.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).inset(-5)
             make.height.equalTo(40)
@@ -136,7 +152,7 @@ extension MainViewController
     
     private func handleSuccess(unsplashPhoto:UnsplashPhoto?)
     {
-        timerLabel.isError = false
+        timerLabel?.isError = false
         alertNoInternetShown = false
         
         addToFavoritesButton.isUserInteractionEnabled = true
@@ -148,12 +164,15 @@ extension MainViewController
         guard let unsplashPhoto = unsplashPhoto else {return}
         userDefaults.set(unsplashPhoto.id,forKey: UnsplashPhotoKeys.keyId.rawValue)
         userDefaults.set(unsplashPhoto.created_at,forKey: UnsplashPhotoKeys.keyCreated.rawValue)
-        userDefaults.set(unsplashPhoto.urls["regular"],forKey: UnsplashPhotoKeys.keyUrl.rawValue)
+        if let user = unsplashPhoto.user {
+            userDefaults.set(user.name,forKey: UnsplashPhotoKeys.keyUserName.rawValue)
+        }
+        userDefaults.set(unsplashPhoto.urls.regular,forKey: UnsplashPhotoKeys.keyUrl.rawValue)
     }
     
     private func handleError(error: (String,Bool)){
         addToFavoritesButton.isUserInteractionEnabled = false
-        timerLabel.isError = true
+        timerLabel?.isError = true
         
         let noInternetError = error.1
         if noInternetError {
@@ -170,12 +189,13 @@ extension MainViewController
         
         guard let id = userDefaults.object(forKey: UnsplashPhotoKeys.keyId.rawValue) as? String,
               let created_at = userDefaults.object(forKey: UnsplashPhotoKeys.keyCreated.rawValue) as? String,
+              let userName = userDefaults.object(forKey: UnsplashPhotoKeys.keyUserName.rawValue) as? String,
               let url = userDefaults.object(forKey: UnsplashPhotoKeys.keyUrl.rawValue) as? String
         else{
             return
         }
         
-        let unsplashPhoto = UnsplashPhoto(id: id, width: 0, height: 0, color: "", created_at: created_at, updated_at: "", downloads: 0, likes: 0, urls: [UnsplashPhoto.URLSizes.regular.rawValue: url])
+        let unsplashPhoto = UnsplashPhoto(id: id, width: 0, height: 0, color: "", created_at: created_at, updated_at: "", downloads: 0, likes: 0, urls: ImageUrls(regular: url), user: ImageOwnerInfo(name: userName) )
         
 
         imageView.unsplashPhoto = unsplashPhoto

@@ -12,7 +12,7 @@ class ImageView: UIImageView {
 
     var unsplashPhoto:UnsplashPhoto?{
         didSet{
-            let photoUrl = unsplashPhoto?.urls[UnsplashPhoto.URLSizes.regular.rawValue]
+            let photoUrl = unsplashPhoto?.urls.regular
             DispatchQueue.global().async {
                 guard let photoUrl = photoUrl, let url = URL(string: photoUrl) else {return}
                 DispatchQueue.main.async {

@@ -40,7 +40,8 @@ class NetworkDataParser{
         do {
             let objects = try decoder.decode(type.self, from: data)
             return (objects,nil)
-        } catch let jsonError {
+        } catch /*let jsonError*/ {
+//            print( jsonError.localizedDescription )
             let errorString = NetworkError.ServiceError.rawValue
             return (nil, (errorString, false))
         }
