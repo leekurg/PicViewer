@@ -38,8 +38,10 @@ class ImageDesc: UIView {
                     sName = user.name
                 }
                 
-                label.text = "Created at \(sDate) by \(sName)"
+                label.text = "Created by \(sName) at \(sDate)"
             }
+            
+            
         }
     }
     
@@ -62,11 +64,9 @@ class ImageDesc: UIView {
     
     private func hide(){
         self.isHidden = true
-//        layer.borderWidth = 0
     }
     private func show(){
         self.isHidden = false
-//        layer.borderWidth = 1
     }
 }
 
@@ -76,8 +76,9 @@ private extension ImageDesc {
         
         if let label = titleLabel {
             addSubview(label)
-            label.text = "About photo"
+            label.text = "About"
             label.font = UIFont.systemFont(ofSize: 25, weight: .thin)
+            label.numberOfLines = 0
             label.snp.makeConstraints { make in
                 make.top.left.right.equalToSuperview()
             }
@@ -90,7 +91,7 @@ private extension ImageDesc {
             label.numberOfLines = 0
             label.snp.makeConstraints { make in
                 make.left.right.equalToSuperview()
-                make.top.equalTo(titleLabel.snp.bottom)
+                make.top.equalTo(titleLabel.snp.bottom).inset(-20)
             }
         }
     }

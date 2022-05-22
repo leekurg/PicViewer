@@ -11,11 +11,7 @@ struct UnsplashPhoto: Codable{
     let id: String
     let width: Int
     let height: Int
-    let color: String
     let created_at:String
-    let updated_at:String
-    let downloads:Int
-    let likes:Int
     let urls: ImageUrls
     let user: ImageOwnerInfo?
 }
@@ -30,8 +26,6 @@ struct ImageOwnerInfo: Codable {
 
 enum UnsplashPhotoKeys: String{
     case keyId = "id"
-    case keyLikes = "likes"
-    case keyDownloads = "downloads"
     case keyUrl = "url"
     case keyCreated = "created_at"
     case keyUserName = "author"

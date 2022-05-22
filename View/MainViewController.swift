@@ -17,8 +17,8 @@ class MainViewController: UIViewController
     private let imageDesc = ImageDesc()
     private let favoritesView = FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() )
     private let addToFavoritesButton = UIButton(type: .system)
-    private var timerLabel: TimerLabel?
-//    private lazy var timerLabel: TimerLabel? = TimerLabel(timeCount: 10, complition: setupImage )
+//    private var timerLabel: TimerLabel?
+    private lazy var timerLabel: TimerLabel? = TimerLabel(timeCount: 10, complition: setupImage )
     private var _alertNoInternetShown = false
     private var alertNoInternetShown: Bool {
         set{
@@ -195,8 +195,7 @@ extension MainViewController
             return
         }
         
-        let unsplashPhoto = UnsplashPhoto(id: id, width: 0, height: 0, color: "", created_at: created_at, updated_at: "", downloads: 0, likes: 0, urls: ImageUrls(regular: url), user: ImageOwnerInfo(name: userName) )
-        
+        let unsplashPhoto = UnsplashPhoto(id: id, width: 0, height: 0, created_at: created_at, urls: ImageUrls(regular: url), user: ImageOwnerInfo(name: userName) )
 
         imageView.unsplashPhoto = unsplashPhoto
         imageDesc.unsplashPhoto = unsplashPhoto

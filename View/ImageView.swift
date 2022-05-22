@@ -25,7 +25,7 @@ class ImageView: UIImageView {
     override init(frame: CGRect = UIScreen.main.bounds) {
         super.init(frame: frame)
         contentMode = .scaleAspectFill
-        translatesAutoresizingMaskIntoConstraints = false
+        clipsToBounds = true
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

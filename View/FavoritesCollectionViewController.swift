@@ -10,20 +10,15 @@ import UIKit
 class FavoritesCollectionViewController: UICollectionViewController {
 
     var networkDataParser = NetworkDataParser()
-//    private var timer: Timer?
     var databaseService:DatabaseService?
-
     private var imagesModel:[UnsplashPhoto?] = []
-
     private var selectedImages = [UIImage]()
-
     private let itemsPerRow: CGFloat = 2
     private let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
     private lazy var addBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(removeImageButtonTapped))
     }()
-
 
     private var numberOfSelectedPhotos: Int {
         return collectionView.indexPathsForSelectedItems?.count ?? 0
