@@ -49,6 +49,7 @@ class MainViewController: UIViewController
     
     private func setupView()
     {
+        imageView.imageMaxHeight = view.frame.size.height * 0.7
         imageView.layer.shadowOffset = CGSize(width: 0, height: 8)
         imageView.layer.shadowOpacity = 0.5
         imageView.layer.shadowRadius = 10.0

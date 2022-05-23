@@ -11,7 +11,7 @@ import SDWebImage
 class ImageView: UIImageView {
 
     private var imageSize: CGSize?
-    private let imageMaxHeight: CGFloat = 580
+    var imageMaxHeight: CGFloat = 500
     
     var unsplashPhoto:UnsplashPhoto?{
         didSet{
@@ -28,7 +28,6 @@ class ImageView: UIImageView {
     override init(frame: CGRect = UIScreen.main.bounds) {
         super.init(frame: frame)
         contentMode = .scaleAspectFit
-//        clipsToBounds = true
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
