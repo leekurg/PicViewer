@@ -81,8 +81,7 @@ class MainViewController: UIViewController
         
         imageView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.top.equalTo(self.view.safeAreaLayoutGuide)
-            make.height.equalTo(400)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
         }
         
         imageDesc.snp.makeConstraints { make in
@@ -110,7 +109,7 @@ class MainViewController: UIViewController
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(nextImage))
         self.navigationItem.leftBarButtonItem = refreshButton
     }
-    
+
     // MARK: - Navigation action
     
     @objc private func addToFavoritesTapped()

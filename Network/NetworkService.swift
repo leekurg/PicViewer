@@ -27,7 +27,7 @@ class NetworkService {
     }
     
     func request(comp: @escaping (Data?,Error?) -> Void){
-        let url = url (params: prepareParams())
+        let url = url()
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = prepareHeaders()
         request.httpMethod = "get"
@@ -41,21 +41,12 @@ class NetworkService {
         headers["Authorization"] = String("Client-ID \(accessKey)")
         return headers
     }
-    private func prepareParams() -> [String:String]{
-        var params = [String:String]()
-        params["orientation"] = "squarish"
-        
-        return params
-    }
     
-    private func url(params : [String:String]) -> URL{
+    private func url() -> URL{
         var components = URLComponents()
         components.scheme = adressComponents.schema
         components.host = adressComponents.host
         components.path = adressComponents.path
-        components.queryItems = params.map{
-            URLQueryItem(name: $0, value: $1)
-        }
         return components.url!
     }
     
