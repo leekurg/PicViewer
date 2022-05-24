@@ -15,7 +15,7 @@ class TimerLabel: UILabel {
             _isError = newValue
             if _isError {
                 self.text = "Next image in ∞ sec"
-                print("Timer error setted")
+//                print("Timer error setted")
             }
             timeCount = timeCountDefault - 1
         }

@@ -13,8 +13,10 @@ class MainViewController: UIViewController
     var databaseService: DatabaseService?
     private let networkDataParser: NetworkDataParser = NetworkDataParser()
     private let userDefaults = UserDefaults.standard
-    private let imageView = ImageView()
-    private let imageDesc = ImageDesc()
+    private var scrollView: UIScrollView!
+    private let contentView = ContentView()
+    private var imageView: ImageView?
+    private var imageDesc: ImageDesc?
     private let favoritesView = FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() )
     private let addToFavoritesButton = UIButton(type: .system)
 //    private var timerLabel: TimerLabel?
@@ -49,14 +51,12 @@ class MainViewController: UIViewController
     
     private func setupView()
     {
-        imageView.imageMaxHeight = view.frame.size.height * 0.7
-        imageView.layer.shadowOffset = CGSize(width: 0, height: 8)
-        imageView.layer.shadowOpacity = 0.5
-        imageView.layer.shadowRadius = 10.0
-        imageView.clipsToBounds = false
+        scrollView = UIScrollView()
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 2000)
         
-        imageDesc.titleLabel = UILabel()
-        imageDesc.descLabel = UILabel()
+        contentView.setupView()
+        imageView = contentView.imageView!
+        imageDesc = contentView.imageDesc!
         
         addToFavoritesButton.backgroundColor = UIColor(red: 84/255, green: 118/255, blue: 171/255, alpha: 1)
         addToFavoritesButton.setTitleColor(.white, for: .normal)
@@ -68,9 +68,9 @@ class MainViewController: UIViewController
         if let _timerLabel = timerLabel {
             view.addSubview(_timerLabel)
         }
-        view.addSubview(imageView)
-        view.addSubview(imageDesc.created())
-        view.addSubview(addToFavoritesButton)
+        scrollView.addSubview(contentView)
+        scrollView.addSubview(addToFavoritesButton)
+        view.addSubview(scrollView)
         
         //constraints
         timerLabel?.snp.makeConstraints { make in
@@ -80,26 +80,29 @@ class MainViewController: UIViewController
             make.width.equalTo(200)
         }
         
-        imageView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
         }
         
-        imageDesc.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(imageView.snp.bottom).inset(-40)
-            make.height.equalTo(100)
+        contentView.snp.makeConstraints { make in
+            make.top.equalTo(scrollView)
+            make.width.equalTo(scrollView)
         }
+        
 
         addToFavoritesButton.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).inset(20)
-            make.right.equalToSuperview().inset(10)
+            make.top.equalTo(imageView!.snp.bottom).inset(20)
+            make.right.equalTo(self.view.snp.right).inset(10)
             make.width.equalTo(40)
             make.height.equalTo(40)
         }
         
         //actions
         addToFavoritesButton.addTarget(self, action: #selector(addToFavoritesTapped), for: .touchUpInside)
+        
+        if let _ = timerLabel {
+            view.bringSubviewToFront(timerLabel!)
+        }
     }
     
     private func setupNavigationBar()
@@ -110,6 +113,29 @@ class MainViewController: UIViewController
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(nextImage))
         self.navigationItem.leftBarButtonItem = refreshButton
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        print("viewDidLayoutSubviews()")
+        print("imageSize height: \(imageView?.imageSize?.height)")
+        
+        if let _ = imageView, let _isize = imageView!.imageSize {
+            if _isize.height > 0.7 * UIScreen.main.bounds.size.height {
+                scrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width,
+                                                height: UIScreen.main.bounds.size.height + 100)
+                print("ScrollView height is setted")
+//                scrollView.setContentOffset(CGPoint.zero, animated: true)
+            }
+            else {
+                scrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width,
+                                                height: UIScreen.main.bounds.size.height - 200)
+                print("ScrollView height was untouched")
+            }
+             
+            print("ScrollView height: \(scrollView.contentSize.height)")
+        }
+    }
 
     // MARK: - Navigation action
     
@@ -117,7 +143,7 @@ class MainViewController: UIViewController
     {
         print(#function)
 
-        databaseService?.write(imageView.unsplashPhoto)
+        databaseService?.write(imageView!.unsplashPhoto)
         addToFavoritesButton.isEnabled = false
         
         let alert = UIAlertController(title: "", message: "Added to Favorites", preferredStyle: .alert)
@@ -158,8 +184,8 @@ extension MainViewController
         addToFavoritesButton.isUserInteractionEnabled = true
         addToFavoritesButton.isEnabled = true
         
-        imageDesc.unsplashPhoto = unsplashPhoto
-        imageView.unsplashPhoto = unsplashPhoto
+        imageDesc!.unsplashPhoto = unsplashPhoto
+        imageView!.unsplashPhoto = unsplashPhoto
         
         guard let unsplashPhoto = unsplashPhoto else {return}
         userDefaults.set(unsplashPhoto.id,forKey: UnsplashPhotoKeys.keyId.rawValue)
@@ -197,9 +223,8 @@ extension MainViewController
         
         let unsplashPhoto = UnsplashPhoto(id: id, width: 0, height: 0, created_at: created_at, urls: ImageUrls(regular: url), user: ImageOwnerInfo(name: userName) )
 
-        imageView.unsplashPhoto = unsplashPhoto
-        imageDesc.unsplashPhoto = unsplashPhoto
-
+        imageView!.unsplashPhoto = unsplashPhoto
+        imageDesc!.unsplashPhoto = unsplashPhoto
     }
     
     

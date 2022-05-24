@@ -10,7 +10,7 @@ import SDWebImage
 
 class ImageView: UIImageView {
 
-    private var imageSize: CGSize?
+    var imageSize: CGSize?  //сохранение размера предыдущего изображения
     var imageMaxHeight: CGFloat = 500
     
     var unsplashPhoto:UnsplashPhoto?{
@@ -43,10 +43,6 @@ class ImageView: UIImageView {
 
             let ratio = myViewWidth/myImageWidth
             var scaledHeight = myImageHeight * ratio
-            
-            if scaledHeight > imageMaxHeight {
-                scaledHeight = imageMaxHeight
-            }
             
             imageSize = CGSize(width: myViewWidth, height: scaledHeight)
             return imageSize!
