@@ -19,8 +19,8 @@ class MainViewController: UIViewController
     private var imageDesc: ImageDesc?
     private let favoritesView = FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() )
     private let addToFavoritesButton = UIButton(type: .system)
-//    private var timerLabel: TimerLabel?
-    private lazy var timerLabel: TimerLabel? = TimerLabel(timeCount: 10, complition: setupImage )
+    private var timerLabel: TimerLabel?
+//    private lazy var timerLabel: TimerLabel? = TimerLabel(timeCount: 10, complition: setupImage )
     private var _alertNoInternetShown = false
     private var alertNoInternetShown: Bool {
         set{
