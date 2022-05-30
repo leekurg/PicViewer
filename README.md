@@ -1,6 +1,8 @@
 # PicViewer
 Swift/UIKit app for viewing random images via Unsplash API
 
+*Project version as test task*
+
 ### Installation ####
 ```sh
    cd .../PicViewer
