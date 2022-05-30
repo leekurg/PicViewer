@@ -18,7 +18,7 @@ class MainViewController: UIViewController
     private var imageView: ImageView?
     private var imageDesc: ImageDesc?
     private let favoritesView = FavoritesCollectionViewController( collectionViewLayout: UICollectionViewFlowLayout() )
-    private let addToFavoritesButton = UIButton(type: .system)
+    private var addToFavoritesButton: UIButton!
 //    private var timerLabel: TimerLabel?
     private lazy var timerLabel: TimerLabel? = TimerLabel(timeCount: 10, complition: setupImage )
     private var _alertNoInternetShown = false
@@ -58,12 +58,16 @@ class MainViewController: UIViewController
         imageView = contentView.imageView!
         imageDesc = contentView.imageDesc!
         
-        addToFavoritesButton.backgroundColor = UIColor(red: 84/255, green: 118/255, blue: 171/255, alpha: 1)
-        addToFavoritesButton.setTitleColor(.white, for: .normal)
-        addToFavoritesButton.layer.cornerRadius = 20
-        addToFavoritesButton.setTitle("🤍", for: .normal)
-        addToFavoritesButton.setTitle("❤️", for: .disabled)
-        addToFavoritesButton.isUserInteractionEnabled = false   //для обработки старта без сети
+        addToFavoritesButton = {
+            let button = UIButton(type: .system)
+            button.backgroundColor = UIColor(red: 84/255, green: 118/255, blue: 171/255, alpha: 1)
+            button.setTitleColor(.white, for: .normal)
+            button.layer.cornerRadius = 20
+            button.setTitle("🤍", for: .normal)
+            button.setTitle("❤️", for: .disabled)
+            button.isUserInteractionEnabled = false   //для обработки старта без сети
+            return button
+        }()
         
         if let _timerLabel = timerLabel {
             view.addSubview(_timerLabel)
@@ -117,23 +121,23 @@ class MainViewController: UIViewController
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        print("viewDidLayoutSubviews()")
-        print("imageSize height: \(imageView?.imageSize?.height)")
+//        print("viewDidLayoutSubviews()")
+//        print("imageSize height: \(imageView?.imageSize?.height)")
         
         if let _ = imageView, let _isize = imageView!.imageSize {
             if _isize.height > 0.7 * UIScreen.main.bounds.size.height {
                 scrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width,
                                                 height: UIScreen.main.bounds.size.height + 100)
-                print("ScrollView height is setted")
+//                print("ScrollView height is setted")
 //                scrollView.setContentOffset(CGPoint.zero, animated: true)
             }
             else {
                 scrollView.contentSize = CGSize(width: UIScreen.main.bounds.size.width,
                                                 height: UIScreen.main.bounds.size.height - 200)
-                print("ScrollView height was untouched")
+//                print("ScrollView height was untouched")
             }
              
-            print("ScrollView height: \(scrollView.contentSize.height)")
+//            print("ScrollView height: \(scrollView.contentSize.height)")
         }
     }
 
@@ -141,7 +145,7 @@ class MainViewController: UIViewController
     
     @objc private func addToFavoritesTapped()
     {
-        print(#function)
+//        print(#function)
 
         databaseService?.write(imageView!.unsplashPhoto)
         addToFavoritesButton.isEnabled = false

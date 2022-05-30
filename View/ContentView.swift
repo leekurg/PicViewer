@@ -14,16 +14,22 @@ class ContentView: UIView {
     var imageDesc: ImageDesc!
     
     func setupView() {
-        imageView = ImageView()
-        imageDesc = ImageDesc()
-        
-        imageView.layer.shadowOffset = CGSize(width: 0, height: 8)
-        imageView.layer.shadowOpacity = 0.5
-        imageView.layer.shadowRadius = 10.0
-        imageView.clipsToBounds = false
-        
-        imageDesc.titleLabel = UILabel()
-        imageDesc.descLabel = UILabel()
+
+        imageView = {
+            let view = ImageView()
+            view.layer.shadowOffset = CGSize(width: 0, height: 8)
+            view.layer.shadowOpacity = 0.5
+            view.layer.shadowRadius = 10.0
+            view.clipsToBounds = false
+            return view
+        }()
+            
+        imageDesc = {
+            let view = ImageDesc()
+            view.titleLabel = UILabel()
+            view.descLabel = UILabel()
+            return view
+        }()
         
         addSubview(imageView)
         addSubview(imageDesc.created())
