@@ -22,7 +22,7 @@ Swift/UIKit app for viewing random images via Unsplash API
   - Caching images with SDWebImage
 
 
-### Installation ####
+### Installation ###
 ```sh
    cd .../PicViewer
    pod install 
