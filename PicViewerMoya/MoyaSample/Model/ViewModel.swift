@@ -33,8 +33,7 @@ class ViewModel: ObservableObject {
             .sink { complition in
                 print(complition)
             } receiveValue: { [weak self] value in
-                self?.imageModel = value
-                print("received image data")
+                self?.imageModel.data = value.data
             }
             .store(in: &cancellables)
     }

@@ -9,12 +9,12 @@ import Foundation
 
 import Foundation
 import Combine
+import Moya
 
 public typealias GetImageInfoPublisher = AnyPublisher<UnsplashInfoModel, Error>
-public typealias GetImagePublisher = AnyPublisher<ImageModel, Error>
+public typealias GetImagePublisher = AnyPublisher<Response, MoyaError>
 
 public protocol NetworkManagerProtocol {
-//    func search(query: String, queryType: SearchQueryType, in databases: [Database]) -> SearchResultPublisher
     func getImageInfo() -> GetImageInfoPublisher
     func getImage(url: String) -> GetImagePublisher
 }

@@ -34,39 +34,6 @@ public final class NetworkManager {
 }
 
 extension NetworkManager: NetworkManagerProtocol {
-//    public func search(query: String, queryType: SearchQueryType, in databases: [Database]) -> SearchResultPublisher {
-//        let payload = SearchRequest(
-//            token: apiToken,
-//            query: query,
-//            type: queryType,
-//            databases: databases.map { $0.identifier }.joined(separator: ",")
-//        )
-//
-//        return provider
-//            .requestPublisher(.search(payload))
-//            .decode(as: SearchResponse.self)
-//            .map(\.results)
-//            .eraseToAnyPublisher()
-//    }
-    
-//    public func getMeaning(of word: Word) -> GetMeaningResultPublisher {
-//        let payload = GetMeaningRequest(
-//            token: apiToken,
-//            title: word.nonEmptyTitle,
-//            database: word.db,
-//            number: word.number
-//        )
-//
-//        let decoder = JSONDecoder()
-//        decoder.userInfo[.isForGetWordMeaning] = true
-//
-//        return provider
-//            .requestPublisher(.getMeaning(payload))
-//            .decode(as: GetMeaningResponse.self, using: decoder)
-//            .map(\.word)
-//            .eraseToAnyPublisher()
-//    }
-    
     public func getImageInfo() -> GetImageInfoPublisher {
         let decoder = JSONDecoder()
 
@@ -76,13 +43,11 @@ extension NetworkManager: NetworkManagerProtocol {
     }
     
     public func getImage(url: String) -> GetImagePublisher {
-        let decoder = JSONDecoder()
         let payload = GetImageByURL(
             apiToken: apiToken,
             url: url)
         
         return provider.requestPublisher(.randomImage(payload))
-            .decode(as: ImageModel.self, using: decoder)
             .eraseToAnyPublisher()
     }
     
