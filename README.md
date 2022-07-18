@@ -3,7 +3,8 @@ _
     <img src="https://user-images.githubusercontent.com/105886145/171062197-9a4f621d-617f-42b2-95be-66e92f0b36be.gif" width="400"> 
     
 ### About ###
-Swift/UIKit app for viewing random images via Unsplash API
+SwiftUI app for viewing random images via Unsplash API.
+Project is in PicViewerMoya directory
 
 #### Features: ####
    - Getting random image with description or maunally with button
@@ -14,12 +15,10 @@ Swift/UIKit app for viewing random images via Unsplash API
    - On start without Internet opens last dusplayed image with description
 
 #### Technology stack: ####
-  - Swift/UIKit
+  - SwiftUI
   - Architecture MVC
   - Dependencies with CocoaPods
-  - Networking with URLSession, JSONDecoder
-  - Data storing with Realm
-  - Caching images with SDWebImage
+  - Networking with Moya
 
 
 ### Installation ###

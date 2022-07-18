@@ -14,7 +14,7 @@ enum NetworkError : String {
 
 class NetworkService {
     let accessKey = "M9YU6SWPK45Eh0MKhz1e8dbT68ly62P5n2PTVl3MZfA"
-    let secretKey = "g0oa9167tLZI4NugQf8Cxh7wLP5LT6pwD12Enyy6fgI"
+//    let secretKey = "g0oa9167tLZI4NugQf8Cxh7wLP5LT6pwD12Enyy6fgI"
     
     struct Adress{
         let schema:String
