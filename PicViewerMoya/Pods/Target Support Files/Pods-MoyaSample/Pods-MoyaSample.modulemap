@@ -1,0 +1,6 @@
+module Pods_MoyaSample {
+  umbrella header "Pods-MoyaSample-umbrella.h"
+
+  export *
+  module * { export * }
+}
