@@ -8,13 +8,14 @@
 import Foundation
 import SwiftUI
 
-public struct ImageModel: Codable {
-    var data: Data
+public struct ImageModel {
+    var info: UnsplashInfoModel
+    var rawImage: Data?
 }
 
 extension Image {
-    init(data: Data) {
-        if let uiImage = UIImage(data: data) {
+    init(data: Data?) {
+        if let data = data, let uiImage = UIImage(data: data) {
             self.init(uiImage: uiImage)
         }
         else {

@@ -9,8 +9,19 @@ import Foundation
 import Moya
 import Combine
 
+private func JSONResponseDataFormatter(_ data: Data) -> String {
+    do {
+        let dataAsJSON = try JSONSerialization.jsonObject(with: data)
+        let prettyData = try JSONSerialization.data(withJSONObject: dataAsJSON, options: .prettyPrinted)
+        return String(data: prettyData, encoding: .utf8) ?? String(data: data, encoding: .utf8) ?? ""
+    } catch {
+        return String(data: data, encoding: .utf8) ?? ""
+    }
+}
+
 public final class NetworkManager {
     typealias Provider = MoyaProvider<Unsplash>
+    
     
     public static var `default`: NetworkManager {
         let provider = Provider(
@@ -53,12 +64,4 @@ extension NetworkManager: NetworkManagerProtocol {
     
 }
 
-private func JSONResponseDataFormatter(_ data: Data) -> String {
-    do {
-        let dataAsJSON = try JSONSerialization.jsonObject(with: data)
-        let prettyData = try JSONSerialization.data(withJSONObject: dataAsJSON, options: .prettyPrinted)
-        return String(data: prettyData, encoding: .utf8) ?? String(data: data, encoding: .utf8) ?? ""
-    } catch {
-        return String(data: data, encoding: .utf8) ?? ""
-    }
-}
+

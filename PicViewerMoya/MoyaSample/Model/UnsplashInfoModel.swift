@@ -17,6 +17,12 @@ public struct UnsplashInfoModel: Codable{
 }
 
 extension UnsplashInfoModel {
+    static func createInstance() -> UnsplashInfoModel {
+        return UnsplashInfoModel(id: "id", width: 0, height: 0, created_at: "", urls: ImageUrls(regular: ""), user: nil)
+    }
+}
+
+extension UnsplashInfoModel {
     struct ImageUrls: Codable {
         var regular: String
     }

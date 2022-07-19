@@ -10,8 +10,10 @@ import Combine
 import Moya
 
 class ViewModel: ObservableObject {
-    @Published var infoModel = UnsplashInfoModel(id: "id", width: 0, height: 0, created_at: "---", urls: UnsplashInfoModel.ImageUrls(regular: "--"), user: nil)
-    @Published var imageModel = ImageModel(data: Data())
+    @Published var imageModel = ImageModel(
+        info: UnsplashInfoModel.createInstance()
+    )
+    private var tmpInfoModel: UnsplashInfoModel?
     
     var cancellables: Set<AnyCancellable> = []
     
@@ -21,9 +23,9 @@ class ViewModel: ObservableObject {
                 print(complition)
             } receiveValue: { [weak self] value in
                 guard let self = self else { return }
-                self.infoModel = value
+                self.tmpInfoModel = value
                 
-                self.requestImageUrl(url: self.infoModel.urls.regular)
+                self.requestImageUrl(url: value.urls.regular)
             }
             .store(in: &cancellables)
     }
@@ -33,7 +35,8 @@ class ViewModel: ObservableObject {
             .sink { complition in
                 print(complition)
             } receiveValue: { [weak self] value in
-                self?.imageModel.data = value.data
+                self?.imageModel.rawImage = value.data
+                self?.imageModel.info = (self?.tmpInfoModel)!
             }
             .store(in: &cancellables)
     }

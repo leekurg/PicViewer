@@ -11,19 +11,39 @@ struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     
     var body: some View {
-        VStack {
-            Image(data: viewModel.imageModel.data)
+        ScrollView {
+            Image(data: viewModel.imageModel.rawImage)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-            Text(viewModel.infoModel.id)
-                .fontWeight(.bold)
-            Spacer()
+            Text("About")
+                .font(.headline)
+                .padding(.bottom)
+            
+            Group {
+                Text("Created: \(viewModel.imageModel.info.created_at)")
+                
+                if let author = viewModel.imageModel.info.user?.name {
+                    Text("Author: \(author)")
+                }
+                else {
+                    Text("Author: ass")
+                }
+            }
+            .font(.subheadline)
+            
             
             Button {
                 viewModel.requestImage()
             } label: {
-                Text("Refresh")
+                Text("REFRESH")
+                    .font(.subheadline)
             }
+            .frame(width: 100, height: 50, alignment: .center)
+            .background(
+                LinearGradient(gradient: Gradient(colors: [.red, .indigo]), startPoint: .topLeading, endPoint: .bottom)
+                )
+            .foregroundColor(Color.white)
+            .cornerRadius(25)
             .padding()
         }
     }
