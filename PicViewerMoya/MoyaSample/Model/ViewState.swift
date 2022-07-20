@@ -14,6 +14,7 @@ class ViewState: ObservableObject {
         info: UnsplashInfoModel.createInstance()
     )
     @Published var isLoading = false
+    @Published var isLiked = false
     
     private var tmpInfoModel: UnsplashInfoModel?
     
@@ -41,7 +42,12 @@ class ViewState: ObservableObject {
                 self?.imageModel.rawImage = value.data
                 self?.imageModel.info = (self?.tmpInfoModel)!
                 self?.isLoading = false
+                self?.isLiked = false
             }
             .store(in: &cancellables)
+    }
+    
+    func like() {
+        isLiked = !isLiked
     }
 }

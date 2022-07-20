@@ -22,9 +22,23 @@ struct ContentView: View {
                             HStack {
                                 Text("About")
                                     .font(.headline)
-                                .padding(.bottom)
                                 Spacer()
+                                Button {
+                                    state.like()
+                                } label: {
+                                    Image(systemName: state.isLiked ? "suit.heart.fill" : "suit.heart")
+                                        .foregroundLinearGradient(
+                                            colors: [.purple, .red],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottom
+                                        )
+                                }
+                                .frame(width: 30, height: 30)
+                                .font(.system(size: 23))
+                                .cornerRadius(15)
+                                .padding(5)
                             }
+                            .padding(.bottom)
                         
                             HStack {
                                 Text("Created: \(state.imageModel.info.created_at)")

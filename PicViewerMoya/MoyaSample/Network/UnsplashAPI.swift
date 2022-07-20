@@ -52,30 +52,12 @@ extension Unsplash: TargetType {
     }
     public var method: Moya.Method { .get }
 
-    public var task: Task {
-        switch self {
-//        case .userRepositories:
-//            return .requestParameters(parameters: ["sort": "pushed"], encoding: URLEncoding.default)
-        default:
-            return .requestPlain
-        }
-    }
-    public var validationType: ValidationType {
-        switch self {
-//        case .zen:
-//            return .successCodes
-        default:
-            return .none
-        }
-    }
-    public var sampleData: Data {
-        switch self {
-        default:
-            return Data()
-//        case .userProfile(let name):
-//            return "{\"login\": \"\(name)\", \"id\": 100}".data(using: String.Encoding.utf8)!
-        }
-    }
+    public var task: Task { .requestPlain  }
+
+    public var validationType: ValidationType { .none  }
+
+    public var sampleData: Data { Data() }
+
     public var headers: [String: String]? {
         switch self {
         case .randomImageInfo(let apiToken):
@@ -96,16 +78,4 @@ public struct GetImageByURL {
     let apiToken: String
     let url: String
 }
-
-// MARK: - Response Handlers
-
-//extension Moya.Response {
-//    func mapNSArray() throws -> NSArray {
-//        let any = try self.mapJSON(failsOnEmptyData: false)
-//        guard let array = any as? NSArray else {
-//            throw MoyaError.jsonMapping(self)
-//        }
-//        return array
-//    }
-//}
 
