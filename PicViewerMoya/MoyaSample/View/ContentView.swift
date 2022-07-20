@@ -11,40 +11,53 @@ struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     
     var body: some View {
-        ScrollView {
-            Image(data: viewModel.imageModel.rawImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-            Text("About")
-                .font(.headline)
-                .padding(.bottom)
-            
-            Group {
-                Text("Created: \(viewModel.imageModel.info.created_at)")
+        VStack {
+            ScrollView {
+                Image(data: viewModel.imageModel.rawImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                Group {
+                    HStack {
+                        Text("About")
+                            .font(.headline)
+                        .padding(.bottom)
+                        Spacer()
+                    }
                 
-                if let author = viewModel.imageModel.info.user?.name {
-                    Text("Author: \(author)")
+                    HStack {
+                        Text("Created: \(viewModel.imageModel.info.created_at)")
+                        Spacer()
+                    }
+
+                    HStack {
+                        let author = viewModel.imageModel.info.user?.name ?? ""
+                        Text("Author: \(author)")
+                        Spacer()
+                    }
                 }
-                else {
-                    Text("Author: ass")
+                .font(.subheadline)
+                .padding(.leading, 10)
+            }
+//            ZStack {
+                Button {
+                    viewModel.requestImage()
+                } label: {
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    }
+                    else {
+                        Image(systemName: "arrow.clockwise")
+                    }
                 }
-            }
-            .font(.subheadline)
-            
-            
-            Button {
-                viewModel.requestImage()
-            } label: {
-                Text("REFRESH")
-                    .font(.subheadline)
-            }
-            .frame(width: 100, height: 50, alignment: .center)
-            .background(
-                LinearGradient(gradient: Gradient(colors: [.red, .indigo]), startPoint: .topLeading, endPoint: .bottom)
+                .frame(width: 50, height: 50, alignment: .center)
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [.red, .indigo]), startPoint: .topLeading, endPoint: .bottom)
                 )
-            .foregroundColor(Color.white)
-            .cornerRadius(25)
-            .padding()
+                .foregroundColor(Color.white)
+                .cornerRadius(25)
+                .padding(10)
+//            }
         }
     }
 }

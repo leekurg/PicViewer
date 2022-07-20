@@ -13,11 +13,14 @@ class ViewModel: ObservableObject {
     @Published var imageModel = ImageModel(
         info: UnsplashInfoModel.createInstance()
     )
+    @Published var isLoading = false
+    
     private var tmpInfoModel: UnsplashInfoModel?
     
     var cancellables: Set<AnyCancellable> = []
     
     func requestImage() {
+        isLoading = true
         networkManager.getImageInfo()
             .sink { complition in
                 print(complition)
@@ -37,6 +40,7 @@ class ViewModel: ObservableObject {
             } receiveValue: { [weak self] value in
                 self?.imageModel.rawImage = value.data
                 self?.imageModel.info = (self?.tmpInfoModel)!
+                self?.isLoading = false
             }
             .store(in: &cancellables)
     }
