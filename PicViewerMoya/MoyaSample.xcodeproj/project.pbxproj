@@ -13,7 +13,7 @@
 		1E14FF7E2881B73800A4B468 /* Extensions+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E14FF7D2881B73800A4B468 /* Extensions+Combine.swift */; };
 		1E715AFE2880ABAA00DAABC3 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E715AFD2880ABAA00DAABC3 /* ImageModel.swift */; };
 		1E715B012880AF0200DAABC3 /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E715B002880AF0200DAABC3 /* UnsplashAPI.swift */; };
-		1E715B032880B1A200DAABC3 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E715B022880B1A200DAABC3 /* ViewModel.swift */; };
+		1E715B032880B1A200DAABC3 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E715B022880B1A200DAABC3 /* ViewState.swift */; };
 		1EADE06E288047FF00D5DF0E /* MoyaSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EADE06D288047FF00D5DF0E /* MoyaSampleApp.swift */; };
 		1EADE070288047FF00D5DF0E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EADE06F288047FF00D5DF0E /* ContentView.swift */; };
 		1EADE0722880480100D5DF0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EADE0712880480100D5DF0E /* Assets.xcassets */; };
@@ -48,7 +48,7 @@
 		1E14FF7D2881B73800A4B468 /* Extensions+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Combine.swift"; sourceTree = "<group>"; };
 		1E715AFD2880ABAA00DAABC3 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		1E715B002880AF0200DAABC3 /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
-		1E715B022880B1A200DAABC3 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		1E715B022880B1A200DAABC3 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		1EADE06A288047FF00D5DF0E /* MoyaSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoyaSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EADE06D288047FF00D5DF0E /* MoyaSampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaSampleApp.swift; sourceTree = "<group>"; };
 		1EADE06F288047FF00D5DF0E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 		1E715AFC2880AB9100DAABC3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1E715B022880B1A200DAABC3 /* ViewModel.swift */,
+				1E715B022880B1A200DAABC3 /* ViewState.swift */,
 				1E715AFD2880ABAA00DAABC3 /* ImageModel.swift */,
 				1E14FF7328815DBD00A4B468 /* UnsplashInfoModel.swift */,
 			);
@@ -352,7 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E715B032880B1A200DAABC3 /* ViewModel.swift in Sources */,
+				1E715B032880B1A200DAABC3 /* ViewState.swift in Sources */,
 				1E715B012880AF0200DAABC3 /* UnsplashAPI.swift in Sources */,
 				1EADE070288047FF00D5DF0E /* ContentView.swift in Sources */,
 				1E14FF7E2881B73800A4B468 /* Extensions+Combine.swift in Sources */,

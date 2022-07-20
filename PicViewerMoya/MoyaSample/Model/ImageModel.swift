@@ -19,7 +19,7 @@ extension Image {
             self.init(uiImage: uiImage)
         }
         else {
-            self.init("turtlerock")
+            self.init("nocontent")
         }
     }
 }

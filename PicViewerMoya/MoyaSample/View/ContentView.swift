@@ -8,56 +8,76 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModel = ViewModel()
+    @StateObject var state = ViewState()
     
     var body: some View {
-        VStack {
-            ScrollView {
-                Image(data: viewModel.imageModel.rawImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                Group {
-                    HStack {
-                        Text("About")
-                            .font(.headline)
-                        .padding(.bottom)
-                        Spacer()
-                    }
-                
-                    HStack {
-                        Text("Created: \(viewModel.imageModel.info.created_at)")
-                        Spacer()
-                    }
+        GeometryReader { geometry in
+            ZStack {
+                ScrollView {
+                    VStack {
+                        Image(data: state.imageModel.rawImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                        Group {
+                            HStack {
+                                Text("About")
+                                    .font(.headline)
+                                .padding(.bottom)
+                                Spacer()
+                            }
+                        
+                            HStack {
+                                Text("Created: \(state.imageModel.info.created_at)")
+                                Spacer()
+                            }
 
-                    HStack {
-                        let author = viewModel.imageModel.info.user?.name ?? ""
-                        Text("Author: \(author)")
-                        Spacer()
+                            HStack {
+                                let author = state.imageModel.info.user?.name ?? ""
+                                Text("Author: \(author)")
+                                Spacer()
+                            }
+                        }
+                        .font(.subheadline)
+                        .padding(.leading, 10)
                     }
+                    .padding(.bottom, 70)
                 }
-                .font(.subheadline)
-                .padding(.leading, 10)
+                
+                //footer panel
+                VStack {
+                    Spacer()
+                    
+                    Group {
+                        Image(uiImage: UIImage())
+                    }
+                    .frame(width: geometry.size.width, height: 60)
+                    .background(.ultraThinMaterial)
+                }
+                
+                //button
+                VStack {
+                    Spacer()
+                    
+                    Button {
+                        state.requestImage()
+                    } label: {
+                        if state.isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        }
+                        else {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                    }
+                    .frame(width: 50, height: 50, alignment: .center)
+                    .background(
+                        LinearGradient(gradient: Gradient(colors: [.red, .indigo]), startPoint: .topLeading, endPoint: .bottom)
+                    )
+                    .foregroundColor(Color.white)
+                    .cornerRadius(25)
+                    .padding(5)
+                }
             }
-//            ZStack {
-                Button {
-                    viewModel.requestImage()
-                } label: {
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    }
-                    else {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                }
-                .frame(width: 50, height: 50, alignment: .center)
-                .background(
-                    LinearGradient(gradient: Gradient(colors: [.red, .indigo]), startPoint: .topLeading, endPoint: .bottom)
-                )
-                .foregroundColor(Color.white)
-                .cornerRadius(25)
-                .padding(10)
-//            }
         }
     }
 }

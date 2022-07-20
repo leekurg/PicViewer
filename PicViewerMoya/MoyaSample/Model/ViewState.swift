@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import Moya
 
-class ViewModel: ObservableObject {
+class ViewState: ObservableObject {
     @Published var imageModel = ImageModel(
         info: UnsplashInfoModel.createInstance()
     )
